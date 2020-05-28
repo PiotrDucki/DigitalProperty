@@ -1,10 +1,22 @@
 <template>
-  <div>
-    <p>Hello</p>
-    <p>Metamask: {{ web3.isInjected }}</p>
-    <p>Network: {{ web3.networkId }}</p>
-    <p>Account: {{ web3.coinbase }}</p>
-    <p>Balance: {{ web3.balance }}</p>
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <p>Hello</p>
+      </div>
+      <div class="column">
+        <p>Metamask: {{ web3.isInjected }}</p>
+      </div>
+      <div class="column">
+        <p>Network: {{ web3.networkId }}</p>
+      </div>
+      <div class="column">
+        <p>Account: {{ web3.coinbase }}</p>
+      </div>
+      <div class="column">
+        <p>Balance: {{ web3.balance }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
