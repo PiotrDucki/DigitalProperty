@@ -1,3 +1,5 @@
+// TODO check if needed
+
 export const NETWORKS = {
   '1': 'Main Net',
   '2': 'Deprecated Morden test network',

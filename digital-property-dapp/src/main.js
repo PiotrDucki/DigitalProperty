@@ -3,11 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
 import Buefy from 'buefy'
-
-import { store } from './store/'
 import { library } from '@fortawesome/fontawesome-svg-core'
-// internal icons
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 

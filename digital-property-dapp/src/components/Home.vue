@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="columns">
+    <div v-if="web3 != null" class="columns">
       <div class="column">
         <p>Hello</p>
       </div>
@@ -21,16 +21,16 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
-  name: 'test',
-  beforeCreate () {
-    console.log('registerWeb3 Action dispatched from casino-dapp.vue')
-    this.$store.dispatch('registerWeb3')
+  name: 'Home',
+  methods: {
+    ...mapActions(['registerWeb3'])
   },
-  computed: {
-    web3 () {
-      return this.$store.state.web3
-    }
+  computed: mapGetters(['web3', 'contractInstance']),
+  created () {
+    this.registerWeb3()
   }
 }
 </script>

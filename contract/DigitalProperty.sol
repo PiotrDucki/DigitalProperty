@@ -30,7 +30,9 @@ contract DigitalProperty {
         address payable buyer;
     }
 
-        
+    enum UserState{ ADMIN, REGISTERED, UNREGISTERED }
+
+
     //================================================================================
     // State variables
     //================================================================================
@@ -243,8 +245,19 @@ contract DigitalProperty {
         }
     }
 
+    function getAuth () public view returns (UserState) {
+        if (msg.sender == admin) {
+            return UserState.ADMIN;
+        } else if (userPeselHash[msg.sender] != 0) {
+           return UserState.REGISTERED;
+        } else {
+            return UserState.UNREGISTERED;
+        }
+    }
+
     // Private
     
+    //TODO refactor this so that it returns bool and then add requied funcion in place of use
     function validateIfUserIsRegistered(address _address) internal view {
         require(_address != address(0), 'Address is invalid');
         require(userPeselHash[_address] != 0, 'Address is not registered');

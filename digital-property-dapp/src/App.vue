@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <b-navbar>
+    <b-navbar shadow>
       <template slot="brand">
         <b-navbar-item tag="router-link" :to="{ path: '/' }">
           <h1 class="is-size-4">Digital Propery</h1>
@@ -18,7 +18,7 @@
         </b-navbar-item>
         <div class="block-spacing"></div>
         <b-navbar-item tag="div">
-          <b-button rounded class="is-accent">Register</b-button>
+          <b-button rounded class="is-accent" v-on:click='logInUser'>Log In</b-button>
         </b-navbar-item>
       </template>
     </b-navbar>
@@ -29,8 +29,13 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
-  name: 'App'
+  name: 'App',
+  methods: {
+    ...mapActions(['logInUser'])
+  }
 }
 
 </script>
