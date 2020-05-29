@@ -1,5 +1,5 @@
 export const userType = {
-  ADMIN: 'admin',
-  REGISTERED: 'registred',
-  UNREGISTERED: 'unregistred'
+  ADMIN: 0,
+  REGISTERED: 1,
+  UNREGISTERED: 2
 }
