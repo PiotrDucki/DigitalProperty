@@ -3,15 +3,15 @@
     <b-navbar shadow>
       <template slot="brand">
         <b-navbar-item tag="router-link" :to="{ path: '/' }">
-          <h1 class="is-size-4">Digital Propery</h1>
+          <p class="title is-1 is-spaced">Digital Property</p>
         </b-navbar-item>
       </template>
       <template slot="end">
-        <b-navbar-item href="#">
+        <b-navbar-item tag="router-link" :to="{ path: '/' }">
           Home
         </b-navbar-item>
-        <b-navbar-item href="#">
-          Offer
+        <b-navbar-item tag="router-link" :to="{ path: '/property' }">
+          Property
         </b-navbar-item>
         <b-navbar-item href="#">
           Contact
@@ -22,7 +22,7 @@
         </b-navbar-item>
       </template>
     </b-navbar>
-    <section class="section">
+    <section class="section ">
       <router-view />
     </section>
   </div>
@@ -42,6 +42,53 @@ export default {
 
 <style lang="scss">
   @import "~bulma/sass/utilities/_all";
+
+  // Adding spacers
+  $sizeUnit: rem;
+  $marginKey: 'm';
+  $paddingKey: 'p';
+  $separator: '-';
+  $sizes: (
+      ('none', 0),
+      ('xxs', 0.125),
+      ('xs', 0.25),
+      ('sm', 0.5),
+      ('md', 1),
+      ('lg', 2),
+      ('xl', 4),
+      ('xxl', 8),
+  );
+  $positions: (
+      ('t', 'top'),
+      ('r', 'right'),
+      ('b', 'bottom'),
+      ('l', 'left')
+  );
+
+  @function sizeValue($key, $value) {
+      @return if($key == 'none', 0, $value + $sizeUnit);
+  }
+
+  @each $size in $sizes {
+      $sizeKey: nth($size, 1);
+      $sizeValue: nth($size, 2);
+      .#{$marginKey}#{$separator}#{$sizeKey} {
+          margin: sizeValue($sizeKey, $sizeValue);
+      }
+      .#{$paddingKey}#{$separator}#{$sizeKey} {
+          padding: sizeValue($sizeKey, $sizeValue);
+      }
+      @each $position in $positions {
+          $posKey: nth($position, 1);
+          $posValue: nth($position, 2);
+          .#{$marginKey}#{$separator}#{$posKey}#{$separator}#{$sizeKey} {
+              margin-#{$posValue}: sizeValue($sizeKey, $sizeValue);
+          }
+          .#{$paddingKey}#{$separator}#{$posKey}#{$separator}#{$sizeKey} {
+              padding-#{$posValue}: sizeValue($sizeKey, $sizeValue);
+          }
+      }
+  }
 
   // Set your colors
   $primary: #030231;
