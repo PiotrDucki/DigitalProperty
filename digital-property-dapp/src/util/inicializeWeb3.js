@@ -1,3 +1,5 @@
+import {address, ABI} from '@/util/contractData'
+
 var Web3 = require('web3')
 
 let getWeb3 = new Promise(function (resolve, reject) {
@@ -45,6 +47,31 @@ let getWeb3 = new Promise(function (resolve, reject) {
           reject(new Error('Unable to retrieve balance for address: ' + result.coinbase))
         } else {
           result = Object.assign({}, result, { balance })
+          resolve(result)
+        }
+      })
+    })
+  })
+  .then(result => {
+    return new Promise(function (resolve, reject) {
+      let web3 = result.web3()
+      const contractInstance = new web3.eth.Contract(ABI, address)
+      if (contractInstance == null) {
+        reject(new Error('Unable to retrieve contract'))
+      } else {
+        result = Object.assign({}, result, { contractInstance })
+        resolve(result)
+      }
+    })
+  })
+  .then(result => {
+    return new Promise(function (resolve, reject) {
+      let contractInstance = result.contractInstance
+      contractInstance.methods.getAuth().call((error, userType) => {
+        if (error) {
+          reject(new Error('Unable to retrieve user data'))
+        } else {
+          result = Object.assign({}, result, { userType })
           resolve(result)
         }
       })

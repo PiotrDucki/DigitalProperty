@@ -1,5 +1,4 @@
 import { userType } from '@/common/userType'
-import { logIn } from '@/util/contractAPI'
 
 const state = {
   userType: userType.UNREGISTERED
@@ -11,11 +10,6 @@ const getters = {
 }
 
 const actions = {
-  logInUser ({commit}) {
-    logIn().then(result => {
-      commit('setUserType', result)
-    }).catch(e => console.log(e))
-  }
 }
 
 const mutations = {

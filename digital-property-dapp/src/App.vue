@@ -18,7 +18,7 @@
         </b-navbar-item>
         <div class="block-spacing"></div>
         <b-navbar-item tag="div">
-          <b-button rounded class="is-accent" v-on:click='logInUser'>Log In</b-button>
+          <b-button rounded class="is-accent">Log In</b-button>
         </b-navbar-item>
       </template>
     </b-navbar>
@@ -34,7 +34,10 @@ import { mapActions } from 'vuex'
 export default {
   name: 'App',
   methods: {
-    ...mapActions(['logInUser'])
+    ...mapActions(['registerWeb3'])
+  },
+  created () {
+    this.registerWeb3()
   }
 }
 

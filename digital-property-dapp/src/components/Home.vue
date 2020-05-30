@@ -21,19 +21,15 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Home',
   methods: {
-    ...mapActions(['registerWeb3'])
   },
   computed: mapState({
     web3: state => state.web3
-  }),
-  created () {
-    this.registerWeb3()
-  }
+  })
 }
 </script>
 
