@@ -1,9 +1,9 @@
 import store from '../store'
 
-// move the code for getting contractInstance and address to another function
+// move the code for getting contractInstance
 
 export function logIn () {
-  var web3 = store.getters.web3
+  var web3 = store.state.web3
   return new Promise(function (resolve, reject) {
     if (web3 == null) reject(new Error('Browser not connected to Metamas'))
     var contractInstance = web3.contractInstance
@@ -20,7 +20,7 @@ export function logIn () {
 }
 
 export function loadProperty (propertyId) {
-  var web3 = store.getters.web3
+  var web3 = store.state.web3
   return new Promise(function (resolve, reject) {
     if (web3 == null) reject(new Error('Browser not connected to Metamas'))
     var contractInstance = web3.contractInstance

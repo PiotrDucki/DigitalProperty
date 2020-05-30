@@ -11,9 +11,6 @@ const state = {
 }
 
 const getters = {
-  web3: (state) => state.isInjected ? state : null,
-  web3Instance: (state) => state.web3Instance,
-  contractInstance: (state) => state.contractInstance
 }
 
 const actions = {

@@ -10,10 +10,10 @@
           </p>
         </b-field>
         <b-field label="Property Data" type="is-primary">
-          <b-input disabled v-model="getProperty.data"></b-input>
+          <b-input disabled v-model="property.data"></b-input>
         </b-field>
         <b-field label="Property Owner" type="is-primary">
-          <b-input disabled v-model="getProperty.owner"></b-input>
+          <b-input disabled v-model="property.owner"></b-input>
         </b-field>
       </div>
     </div>
@@ -21,10 +21,10 @@
       <div class="tile is-child box notification has-padding-40">
         <p class="title is-1">Offer</p>
         <b-field label="Price" type="is-primary">
-          <b-input disabled v-model="getProperty.offer.price"></b-input>
+          <b-input disabled v-model="property.offer.price"></b-input>
         </b-field>
         <b-field label="Buyer" type="is-primary">
-          <b-input disabled v-model="getProperty.offer.buyer"></b-input>
+          <b-input disabled v-model="property.offer.buyer"></b-input>
         </b-field>
         <b-button disabled type="is-accent is-medium has-margin-top-30" expanded>Buy</b-button>
       </div>
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Property',
@@ -61,7 +61,9 @@ export default {
       })
     }
   },
-  computed: mapGetters(['getProperty'])
+  computed: mapState({
+    property: state => state.property
+  })
 }
 </script>
 

@@ -12,7 +12,7 @@ const state = {
 }
 
 const getters = {
-  getProperty: () => state
+  // getProperty: () => state
 }
 
 const actions = {
