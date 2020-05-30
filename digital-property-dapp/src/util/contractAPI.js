@@ -7,11 +7,29 @@ export function logIn () {
   return new Promise(function (resolve, reject) {
     if (web3 == null) reject(new Error('Browser not connected to Metamas'))
     var contractInstance = web3.contractInstance
-    var userAddress = web3.coinbase
-    contractInstance().methods.getAuth().call({from: userAddress}, (error, result) => {
+    contractInstance().methods.getAuth().call((error, result) => {
       if (error) {
         reject(new Error(''))
       } else {
+        console.log('result :')
+        console.log(result)
+        resolve(result)
+      }
+    })
+  })
+}
+
+export function loadProperty (propertyId) {
+  var web3 = store.getters.web3
+  return new Promise(function (resolve, reject) {
+    if (web3 == null) reject(new Error('Browser not connected to Metamas'))
+    var contractInstance = web3.contractInstance
+    console.log(propertyId)
+    contractInstance().methods.getProperty(propertyId).call((error, result) => {
+      if (error) {
+        reject(new Error(''))
+      } else {
+        console.log('result :')
         console.log(result)
         resolve(result)
       }
