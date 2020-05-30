@@ -1,4 +1,5 @@
 import getWeb3 from '@/util/inicializeWeb3'
+import NETWORKS from '@/util/networks'
 
 const state = {
   coinbase: null,
@@ -10,17 +11,16 @@ const state = {
 }
 
 const getters = {
+  networkName: (state) => NETWORKS[state.networkId]
 }
 
 const actions = {
   registerWeb3 ({commit, dispatch}) {
     console.log('registerWeb3 Action being executed')
-    getWeb3.then(result => {
+    return getWeb3.then(result => {
       console.log('committing result to registerWeb3Instance mutation')
       commit('setWeb3', result)
       commit('setUserType', result.userType)
-    }).catch(e => {
-      console.log('error in action registerWeb3', e)
     })
   }
 }

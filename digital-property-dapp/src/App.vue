@@ -29,15 +29,38 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'App',
+  computed: {
+    ...mapState({
+      web3: state => state.web3
+    }),
+    ...mapGetters(['isUserDataLoaded'])
+  },
   methods: {
-    ...mapActions(['registerWeb3'])
+    ...mapActions(['registerWeb3']),
+    successNotification () {
+      this.$buefy.notification.open({
+        duration: 5000,
+        message: 'Connection established',
+        type: 'is-success'
+      })
+    }
   },
   created () {
-    this.registerWeb3()
+    this.registerWeb3().then(result => {
+      this.successNotification()
+    }).catch(e => {
+      this.$buefy.notification.open({
+        duration: 10000,
+        message: e.message,
+        type: 'is-danger'
+      })
+    })
+  },
+  mounted () {
   }
 }
 

@@ -1,6 +1,7 @@
 // TODO check if needed
 
-export const NETWORKS = {
+const NETWORKS = {
+  '0': 'Not Connected',
   '1': 'Main Net',
   '2': 'Deprecated Morden test network',
   '3': 'Ropsten test network',
@@ -9,3 +10,5 @@ export const NETWORKS = {
   '4447': 'Truffle Develop Network',
   '5777': 'Ganache Blockchain'
 }
+
+export default NETWORKS

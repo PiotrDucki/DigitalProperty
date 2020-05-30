@@ -1,35 +1,35 @@
 <template>
   <div class="container">
-    <div v-if="web3 != null" class="columns">
-      <div class="column">
-        <p>Hello</p>
-      </div>
-      <div class="column">
+    <div v-if="web3 != null" class="columns is-4">
+      <div class="column .has-padding-10 .has-margin-30">
         <p>Metamask: {{ web3.isInjected }}</p>
       </div>
       <div class="column">
-        <p>Network: {{ web3.networkId }}</p>
+        <p>Network: {{ networkName }}</p>
       </div>
       <div class="column">
         <p>Account: {{ web3.coinbase }}</p>
       </div>
       <div class="column">
-        <p>Balance: {{ web3.balance }}</p>
+        <p>Balance:{{ web3.balance }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'Home',
   methods: {
   },
-  computed: mapState({
-    web3: state => state.web3
-  })
+  computed: {
+    ...mapState({
+      web3: state => state.web3
+    }),
+    ...mapGetters(['networkName'])
+  }
 }
 </script>
 

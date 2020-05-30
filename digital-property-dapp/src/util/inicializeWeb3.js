@@ -13,14 +13,14 @@ let getWeb3 = new Promise(function (resolve, reject) {
       }
     })
   } else {
-    reject(new Error('Unable to connect to Metamask'))
+    reject(new Error('Metamask not detected. Please instal Metamask browser extention'))
   }
 })
   .then(result => {
     return new Promise(function (resolve, reject) {
       result.web3().eth.net.getId((err, networkId) => {
         if (err) {
-          reject(new Error('Unable to retrieve network ID'))
+          reject(new Error('Couldnt conect to Ethereum network. Please check network setting in Metamask'))
         } else {
           result = Object.assign({}, result, {networkId})
           resolve(result)
@@ -69,7 +69,7 @@ let getWeb3 = new Promise(function (resolve, reject) {
       let contractInstance = result.contractInstance
       contractInstance.methods.getAuth().call((error, userType) => {
         if (error) {
-          reject(new Error('Unable to retrieve user data'))
+          reject(new Error('Unable to retrieve user data. Please make sure that you are connected to main network.'))
         } else {
           result = Object.assign({}, result, { userType })
           resolve(result)
