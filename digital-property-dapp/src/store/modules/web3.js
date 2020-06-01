@@ -1,4 +1,4 @@
-import getWeb3 from '@/util/inicializeWeb3'
+import { getWeb3 } from '@/util/inicializeWeb3'
 import NETWORKS from '@/util/networks'
 
 const state = {
@@ -16,9 +16,7 @@ const getters = {
 
 const actions = {
   registerWeb3 ({commit, dispatch}) {
-    console.log('registerWeb3 Action being executed')
-    return getWeb3.then(result => {
-      console.log('committing result to registerWeb3Instance mutation')
+    return getWeb3().then(result => {
       commit('setWeb3', result)
       commit('setUserType', result.userType)
     })

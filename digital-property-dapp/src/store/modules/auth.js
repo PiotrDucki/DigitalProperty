@@ -7,6 +7,7 @@ const state = {
 const getters = {
   isUserAdmin: (state) => state.userType === userType.ADMIN,
   isUserRegisterd: (state) => state.userType === userType.REGISTERED,
+  isUserUnregisterd: (state) => state.userType === userType.UNREGISTERED,
   isUserDataLoaded: (state) => state.userType !== userType.INICIAL_TYPE
 }
 
@@ -15,7 +16,7 @@ const actions = {
 
 const mutations = {
   setUserType (state, payload) {
-    state.userType = payload
+    state.userType = Number(payload)
   }
 }
 

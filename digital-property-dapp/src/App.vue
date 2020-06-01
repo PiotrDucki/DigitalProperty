@@ -18,7 +18,9 @@
         </b-navbar-item>
         <div class="block-spacing"></div>
         <b-navbar-item tag="div">
-          <b-button rounded class="is-accent">Log In</b-button>
+          <b-button v-if="isUserUnregisterd" rounded class="is-accent">Register</b-button>
+          <b-button v-if="isUserRegisterd" rounded class="is-accent">My Properties</b-button>
+
         </b-navbar-item>
       </template>
     </b-navbar>
@@ -37,30 +39,35 @@ export default {
     ...mapState({
       web3: state => state.web3
     }),
-    ...mapGetters(['isUserDataLoaded'])
+    ...mapGetters(['isUserRegisterd', 'isUserUnregisterd'])
   },
   methods: {
     ...mapActions(['registerWeb3']),
     successNotification () {
       this.$buefy.notification.open({
-        duration: 5000,
+        duration: 3000,
         message: 'Connection established',
         type: 'is-success'
+      })
+    },
+    registerWeb3AndShopNotification () {
+      this.registerWeb3().then(result => {
+        this.successNotification()
+      }).catch(e => {
+        this.$buefy.notification.open({
+          duration: 10000,
+          message: e.message,
+          type: 'is-danger'
+        })
       })
     }
   },
   created () {
-    this.registerWeb3().then(result => {
-      this.successNotification()
-    }).catch(e => {
-      this.$buefy.notification.open({
-        duration: 10000,
-        message: e.message,
-        type: 'is-danger'
-      })
+    this.registerWeb3AndShopNotification()
+
+    window.ethereum.on('accountsChanged', (accounts) => {
+      this.registerWeb3AndShopNotification()
     })
-  },
-  mounted () {
   }
 }
 
