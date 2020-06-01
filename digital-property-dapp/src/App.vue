@@ -19,8 +19,8 @@
         <div class="block-spacing"></div>
         <b-navbar-item tag="div">
           <b-button v-if="isUserUnregisterd" rounded class="is-accent">Register</b-button>
-          <b-button v-if="isUserRegisterd" rounded class="is-accent">My Properties</b-button>
-
+          <b-button v-if="isUserRegisterd" rounded class="is-accent"
+          tag="router-link" :to="{ path: '/my-properties' }">My Properties</b-button>
         </b-navbar-item>
       </template>
     </b-navbar>

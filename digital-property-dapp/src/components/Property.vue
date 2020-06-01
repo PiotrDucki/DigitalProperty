@@ -61,9 +61,11 @@ export default {
       })
     }
   },
-  computed: mapState({
-    property: state => state.property
-  })
+  computed: {
+    ...mapState({
+      property: state => state.property
+    })
+  }
 }
 </script>
 
