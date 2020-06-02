@@ -47,15 +47,19 @@ export default {
     search () {
       if (this.propertyId === parseInt(this.propertyId, 10)) {
         this.loadProperty(this.propertyId)
+          .catch(e => this.showErrorAlert(e.message))
       } else {
         this.inputIsNotIntegerAlert()
       }
       console.log(this.propertyId)
     },
     inputIsNotIntegerAlert () {
+      this.showErrorAlert(`Property ID must be an integer`)
+    },
+    showErrorAlert (message) {
       this.$buefy.notification.open({
         duration: 5000,
-        message: `Property ID must be an integer`,
+        message: message,
         type: 'is-danger',
         hasIcon: true
       })

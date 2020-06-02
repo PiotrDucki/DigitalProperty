@@ -213,20 +213,28 @@ contract DigitalProperty {
     }
 
 
-    function getMyProperties () public view onlyRegisteredUsers returns (uint256[] memory, string[] memory, bool[] memory) {
+    function getMyProperties () public view onlyRegisteredUsers
+    returns (uint256[] memory, string[] memory, bool[] memory, uint256[] memory, address[] memory) {
         uint256 total = userProperties[msg.sender].length;
-        uint256[] memory ids = new uint256[](total);
+        uint256[] memory id = new uint256[](total);
         string[] memory data = new string[](total);
         bool[] memory isForSale = new bool[](total);
-        
+        uint256[] memory price = new uint256[](total);
+        address[] memory buyer = new address[](total);
+
         for (uint256 i = 0; i < total ; i++){
             uint256 currentPropertyId = userProperties[msg.sender][i];
             Property memory property = propertyById[currentPropertyId];
-            ids[i] = property.id;
+            id[i] = property.id;
             data[i] = property.data;
             isForSale[i] = property.isForSale;
+            if(isForSale[i]){
+                Offer memory offer = propertyOffer[property.id];
+                price[i] = offer.price;
+                buyer[i] = offer.buyer;
+            }
         }
-        return (ids, data, isForSale);
+        return (id, data, isForSale, price, buyer);
     }
 
 
@@ -327,8 +335,9 @@ contract DigitalProperty {
     
     //================================================================================
     // Debuging + Testing
-    // 0xbb8054079166aa29648eBa9FfE9Ea6abD0E327E0
-    // 0xcAe121927c972C40371c8F7908b4aaE4f3B5CA5A
+    // Admin 0x95cEC548ddA3d2382e97e2061B8402AC04f9db05
+    // Second account 0x236b52e93493Cc873aA33eae10d08eE4805266D3
+    // Imported account 0x5F41aB77681db06162de16b36dcfbFDA11097eE2
     //================================================================================
 
      event LogBytes32(string, string);

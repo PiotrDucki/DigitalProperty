@@ -1,14 +1,15 @@
 <template>
 <div>
-  <div class="tile is-ancestor">
+
+  <div class="tile is-ancestor" v-for="property in myProperties" :key="property.id">
     <div class="tile is-parent has-margin-15">
       <div class="tile is-child box notification has-padding-40">
         <p class="title is-1">Property</p>
         <b-field label="Property Id" type="is-primary">
-          <b-input disabled ></b-input>
+          <b-input disabled v-model="property.id"></b-input>
         </b-field>
         <b-field label="Property Data" type="is-primary">
-          <b-input disabled ></b-input>
+          <b-input disabled v-model="property.data"></b-input>
         </b-field>
         <hr>
         <b-field label="Previous Owner" type="is-primary">
@@ -22,23 +23,34 @@
         </b-field>
       </div>
     </div>
-    <div class="tile is-parent has-margin-15">
+    <div v-if="property.ifForSale" class="tile is-parent has-margin-15">
       <div class="tile is-child box notification has-padding-40 has-height-350">
         <p class="title is-1">Offer</p>
         <b-field label="Price" type="is-primary">
-          <b-input disabled></b-input>
+          <b-input disabled v-model="property.offer.price"></b-input>
         </b-field>
         <b-field label="Buyer" type="is-primary">
-          <b-input disabled></b-input>
+          <b-input disabled v-model="property.offer.buyer">></b-input>
         </b-field>
         <b-button class="has-margin-top-30" type="is-accent" icon-right="trash" expanded>
                 Delete
         </b-button>
       </div>
     </div>
+     <div v-else class="tile is-parent has-margin-15 has-height-200">
+      <div class="tile is-child box notification has-padding-40">
+        <p class="title is-1">Offer</p>
+        <b-button class="has-margin-top-30" type="is-accent" icon-right="handshake" expanded>
+                Creat Offer
+        </b-button>
+      </div>
+    </div>
   </div>
 
-  <div class="tile is-ancestor">
+<!-- <div v-for="property in myProperties" :key="property.id">
+  <div class="notification">{{property.id}}</div>
+</div> -->
+  <!-- <div class="tile is-ancestor">
     <div class="tile is-parent has-margin-15">
       <div class="tile is-child box notification has-padding-40">
         <p class="title is-1">Property</p>
@@ -68,13 +80,13 @@
         </b-button>
       </div>
     </div>
-  </div>
+  </div> -->
 
 </div>
 </template>
 
 <script>
-// import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'MyProperties',
@@ -83,8 +95,24 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['loadMyPropertiesProperty']),
+    showErrorAlert (message) {
+      this.$buefy.notification.open({
+        duration: 5000,
+        message: message,
+        type: 'is-danger',
+        hasIcon: true
+      })
+    }
   },
   computed: {
+    ...mapState({
+      myProperties: state => state.myProperties.propertyList
+    })
+  },
+  created () {
+    this.loadMyPropertiesProperty()
+      .catch(e => this.showErrorAlert(e.message))
   }
 }
 </script>

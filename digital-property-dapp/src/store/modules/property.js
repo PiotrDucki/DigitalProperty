@@ -1,4 +1,4 @@
-import { loadProperty } from '@/util/contractAPI'
+import { loadPropertyContracCall } from '@/util/contractAPI'
 
 const state = {
   id: 0,
@@ -18,7 +18,7 @@ const getters = {
 const actions = {
   loadProperty ({commit}, propertyId) {
     // API call
-    loadProperty(propertyId).then(result => {
+    return loadPropertyContracCall(propertyId).then(result => {
       // Process results
       var property = {
         id: result[0],
@@ -34,7 +34,7 @@ const actions = {
       console.log(property)
       // Set changes
       commit('setProperty', property)
-    }).catch(e => console.log(e))
+    })
   }
 }
 
