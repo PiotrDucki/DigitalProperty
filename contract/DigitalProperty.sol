@@ -165,8 +165,11 @@ contract DigitalProperty {
     }
 
     function removeOffer (uint256 _propertyId) public onlyRegisteredUsers {
-            require(propertyById[_propertyId].owner == msg.sender, 'User is not an owner of the property');
+            Property storage property = propertyById[_propertyId];
 
+            require(property.owner == msg.sender, 'User is not an owner of the property');
+
+            property.isForSale = false;
             Offer storage offer = propertyOffer[_propertyId];
             offer.price = 0;
             offer.buyer = address(0);
@@ -214,27 +217,38 @@ contract DigitalProperty {
 
 
     function getMyProperties () public view onlyRegisteredUsers
-    returns (uint256[] memory, string[] memory, bool[] memory, uint256[] memory, address[] memory) {
+    returns (uint256[] memory, string[] memory, bool[] memory, uint256[] memory, address[] memory, address[] memory, uint[] memory) {
         uint256 total = userProperties[msg.sender].length;
         uint256[] memory id = new uint256[](total);
         string[] memory data = new string[](total);
         bool[] memory isForSale = new bool[](total);
-        uint256[] memory price = new uint256[](total);
-        address[] memory buyer = new address[](total);
+        uint256[] memory offerPrice = new uint256[](total);
+        address[] memory offerBuyer = new address[](total);
+        address[] memory lastTransactionSeller = new address[](total);
+        uint[] memory lastTransactionDate = new uint[](total);
+
 
         for (uint256 i = 0; i < total ; i++){
             uint256 currentPropertyId = userProperties[msg.sender][i];
+            uint trasnsationsCount = propertyTransactions[currentPropertyId].length;
             Property memory property = propertyById[currentPropertyId];
             id[i] = property.id;
             data[i] = property.data;
             isForSale[i] = property.isForSale;
             if(isForSale[i]){
                 Offer memory offer = propertyOffer[property.id];
-                price[i] = offer.price;
-                buyer[i] = offer.buyer;
+                offerPrice[i] = offer.price;
+                offerBuyer[i] = offer.buyer;
             }
+            if (trasnsationsCount > 0){
+                uint256 transactionId = propertyTransactions[property.id][trasnsationsCount - 1];
+                Transaction memory transaction = transationById[transactionId];
+                lastTransactionSeller[i] = transaction.seller;
+                lastTransactionDate[i] = transaction.date;
+            }
+
         }
-        return (id, data, isForSale, price, buyer);
+        return (id, data, isForSale, offerPrice, offerBuyer, lastTransactionSeller, lastTransactionDate);
     }
 
 
@@ -334,11 +348,15 @@ contract DigitalProperty {
     
     
     //================================================================================
-    // Debuging + Testing
+    // Meta Mask
     // Admin 0x95cEC548ddA3d2382e97e2061B8402AC04f9db05
     // Second account 0x236b52e93493Cc873aA33eae10d08eE4805266D3
     // Imported account 0x5F41aB77681db06162de16b36dcfbFDA11097eE2
+    // Current JS VM
+    // Admin 0x51E1730Ff32fac2Fa838671B50789475cC2C05A1
+    // Second account 0x514154790dDF4622348Da8e45b00CcbcCB96f7DE
     //================================================================================
+
 
      event LogBytes32(string, string);
 

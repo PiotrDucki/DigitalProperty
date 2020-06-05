@@ -1,6 +1,6 @@
 /* eslint-disable */ 
 
-const address = '0x40fc2A1D4d2790Bd937B609e8EC72C9c53377737'
+const address = '0xb5dE7D37C1BE3067aF41DB2a71BAbC2b58191B44'
 const ABI = [
 	{
 		"inputs": [],
@@ -172,6 +172,16 @@ const ABI = [
 				"internalType": "address[]",
 				"name": "",
 				"type": "address[]"
+			},
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
 			}
 		],
 		"stateMutability": "view",
