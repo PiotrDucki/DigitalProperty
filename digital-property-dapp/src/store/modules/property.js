@@ -23,11 +23,11 @@ const actions = {
       var property = {
         id: result[0],
         data: result[1],
-        owner: result[2],
+        owner: result[2].toLowerCase(),
         ifForSale: result[3],
         offer: {
           price: result[4],
-          buyer: result[5]
+          buyer: result[5].toLowerCase()
         }
       }
       console.log('inside acction')

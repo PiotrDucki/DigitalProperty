@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 import CreateOfferModal from './CreateOfferModal.vue'
 
 export default {
@@ -95,11 +95,20 @@ export default {
   computed: {
     ...mapState({
       myProperties: state => state.myProperties.propertyList
-    })
+    }),
+    ...mapGetters(['isUserDataLoaded'])
   },
-  created () {
-    this.loadMyPropertiesProperty()
-      .catch(e => this.showErrorAlert(e.message))
+  mounted () {
+    if (this.isUserDataLoaded) {
+      this.loadMyPropertiesProperty()
+        .catch(e => this.showErrorAlert(e.message))
+    }
+  },
+  watch: {
+    isUserDataLoaded: function () {
+      this.loadMyPropertiesProperty()
+        .catch(e => this.showErrorAlert(e.message))
+    }
   }
 }
 </script>

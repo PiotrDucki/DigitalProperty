@@ -41,9 +41,14 @@ export function removeOfferContracCall (propertyId) {
 
 export function createOfferContracCall (offer) {
   var web3 = store.state.web3
-  console.log(offer)
   if (web3 != null) {
-    var test = web3.contractInstance.methods.createOffer(offer.propertyId, offer.price, offer.buyerAddress).send()
-    console.log(test)
+    web3.contractInstance.methods.createOffer(offer.propertyId, offer.price, offer.buyerAddress).send()
+  }
+}
+
+export function buyPropertyContracCall (offerDetails) {
+  var web3 = store.state.web3
+  if (web3 != null) {
+    web3.contractInstance.methods.confirmOffer(offerDetails.propertyId).send({value: offerDetails.price})
   }
 }
