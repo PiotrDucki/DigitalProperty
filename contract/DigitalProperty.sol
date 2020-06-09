@@ -260,7 +260,7 @@ contract DigitalProperty {
         Property memory property = propertyById[_propertyId];
         Offer memory offer = propertyOffer[_propertyId];
 
-        if (msg.sender == admin || msg.sender == offer.buyer) {
+        if (msg.sender == admin || msg.sender == offer.buyer || msg.sender == property.owner) {
             return (property.id, property.data, property.owner, property.isForSale, offer.price, offer.buyer);
         } else {
             return (property.id, property.data, property.owner, property.isForSale, 0, address(0));

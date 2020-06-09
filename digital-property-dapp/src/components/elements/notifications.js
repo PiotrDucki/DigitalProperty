@@ -2,21 +2,21 @@ export const notifications = {
   methods: {
     successNotification (message) {
       this.$buefy.toast.open({
-        duration: 5000,
+        duration: 2000,
         message: message,
         type: 'is-success'
       })
     },
     warningNotification (message) {
       this.$buefy.toast.open({
-        duration: 5000,
+        duration: 2000,
         message: message,
         type: 'is-warning'
       })
     },
     errorNotification (message) {
       this.$buefy.toast.open({
-        duration: 10000,
+        duration: 2000,
         message: message,
         type: 'is-danger'
       })

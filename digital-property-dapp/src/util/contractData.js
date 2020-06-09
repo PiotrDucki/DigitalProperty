@@ -1,31 +1,7 @@
 /* eslint-disable */ 
 
-const address = '0xb5dE7D37C1BE3067aF41DB2a71BAbC2b58191B44'
+const address = '0xB3cc98D41Dca2AB407a5a915DFDEa8D1164faCFb'
 const ABI = [
-	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"name": "LogBytes32",
-		"type": "event"
-	},
 	{
 		"inputs": [
 			{
@@ -94,6 +70,43 @@ const ABI = [
 			}
 		],
 		"name": "createOffer",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"name": "LogBytes32",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_propertyId",
+				"type": "uint256"
+			}
+		],
+		"name": "removeOffer",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -336,19 +349,6 @@ const ABI = [
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_propertyId",
-				"type": "uint256"
-			}
-		],
-		"name": "removeOffer",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]
