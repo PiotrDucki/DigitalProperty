@@ -43,30 +43,30 @@ export default {
   },
   methods: {
     ...mapActions(['registerWeb3']),
-    successNotification () {
-      this.$buefy.notification.open({
-        duration: 3000,
-        message: 'Connection established',
+    registerWeb3AndShowNotification () {
+      this.registerWeb3()
+        .then(result => this.successNotification('Connection established'))
+        .catch(e => this.errorNotification(e.message))
+    },
+    successNotification (message) {
+      this.$buefy.toast.open({
+        duration: 5000,
+        message: message,
         type: 'is-success'
       })
     },
-    registerWeb3AndShopNotification () {
-      this.registerWeb3().then(result => {
-        this.successNotification()
-      }).catch(e => {
-        this.$buefy.notification.open({
-          duration: 10000,
-          message: e.message,
-          type: 'is-danger'
-        })
+    errorNotification (message) {
+      this.$buefy.toast.open({
+        duration: 10000,
+        message: message,
+        type: 'is-danger'
       })
     }
   },
   created () {
-    this.registerWeb3AndShopNotification()
-
+    this.registerWeb3AndShowNotification()
     window.ethereum.on('accountsChanged', (accounts) => {
-      this.registerWeb3AndShopNotification()
+      this.registerWeb3AndShowNotification()
     })
   }
 }

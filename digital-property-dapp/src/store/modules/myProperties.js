@@ -1,4 +1,4 @@
-import { loadMyPropertiesContracCall, removeOfferContracCall, createOfferContracCall } from '@/util/contractAPI'
+import { loadMyPropertiesContracCall } from '@/util/contractAPI'
 
 const state = {
   propertyList: []
@@ -32,12 +32,6 @@ const actions = {
       }
       commit('setMyProperties', propertyList)
     })
-  },
-  removeOffer ({commit}, propertyId) {
-    removeOfferContracCall(propertyId)
-  },
-  createOffer ({commit}, offer) {
-    createOfferContracCall(offer)
   }
 }
 

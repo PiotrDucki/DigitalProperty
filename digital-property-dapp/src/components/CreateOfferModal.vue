@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { createOfferContracCall } from '@/util/contractAPI'
 
 export default {
   name: 'CreateOfferModal',
@@ -35,20 +35,17 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['createOffer']),
     createOfferOfferShowNotification () {
       var offer = {
         propertyId: this.propertyId,
         price: this.price,
         buyerAddress: this.buyerAddres
       }
-      this.createOffer(offer)
+      createOfferContracCall(offer)
       this.$buefy.toast.open('User confirmed')
       this.price = null
       this.buyerAddres = null
     }
-  },
-  computed: {
   }
 }
 </script>

@@ -50,11 +50,10 @@ export default {
     search () {
       if (this.propertyId === parseInt(this.propertyId, 10)) {
         this.loadProperty(this.propertyId)
-          .catch(e => this.showErrorAlert(e.message))
+          .catch(e => this.errorNotification(e.message))
       } else {
         this.inputIsNotIntegerAlert()
       }
-      console.log(this.propertyId)
     },
     buyProperty () {
       var offerDetails = {
@@ -64,14 +63,13 @@ export default {
       buyPropertyContracCall(offerDetails)
     },
     inputIsNotIntegerAlert () {
-      this.showErrorAlert(`Property ID must be an integer`)
+      this.errorNotification(`Property ID must be an integer`)
     },
-    showErrorAlert (message) {
-      this.$buefy.notification.open({
-        duration: 5000,
+    errorNotification (message) {
+      this.$buefy.toast.open({
+        duration: 10000,
         message: message,
-        type: 'is-danger',
-        hasIcon: true
+        type: 'is-danger'
       })
     }
   },

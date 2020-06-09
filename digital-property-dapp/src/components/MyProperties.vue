@@ -57,6 +57,7 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 import CreateOfferModal from './CreateOfferModal.vue'
+import { removeOfferContracCall } from '@/util/contractAPI'
 
 export default {
   name: 'MyProperties',
@@ -72,23 +73,29 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['loadMyPropertiesProperty', 'removeOffer']),
-    showErrorAlert (message) {
-      this.$buefy.notification.open({
-        duration: 5000,
-        message: message,
-        type: 'is-danger',
-        hasIcon: true
-      })
-    },
+    ...mapActions(['loadMyPropertiesProperty']),
     confirmDeleteOffer (propertyId) {
       this.$buefy.dialog.confirm({
         message: 'Are you sure that you want to remove offer?',
         type: 'is-accent',
         onConfirm: () => {
-          this.removeOffer(propertyId)
-          this.$buefy.toast.open('User confirmed')
+          removeOfferContracCall(propertyId)
+            .then(this.warningNotification('Please confirm the acction in Metamask'))
         }
+      })
+    },
+    warningNotification (message) {
+      this.$buefy.toast.open({
+        duration: 5000,
+        message: message,
+        type: 'is-warning'
+      })
+    },
+    errorNotification (message) {
+      this.$buefy.toast.open({
+        duration: 10000,
+        message: message,
+        type: 'is-danger'
       })
     }
   },
@@ -101,13 +108,13 @@ export default {
   mounted () {
     if (this.isUserDataLoaded) {
       this.loadMyPropertiesProperty()
-        .catch(e => this.showErrorAlert(e.message))
+        .catch(e => this.errorNotification(e.message))
     }
   },
   watch: {
     isUserDataLoaded: function () {
       this.loadMyPropertiesProperty()
-        .catch(e => this.showErrorAlert(e.message))
+        .catch(e => this.errorNotification(e.message))
     }
   }
 }
