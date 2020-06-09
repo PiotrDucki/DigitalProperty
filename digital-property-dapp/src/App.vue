@@ -32,9 +32,11 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
+import { notifications } from './components/elements/notifications.js'
 
 export default {
   name: 'App',
+  mixins: [notifications],
   computed: {
     ...mapState({
       web3: state => state.web3
@@ -47,20 +49,6 @@ export default {
       this.registerWeb3()
         .then(result => this.successNotification('Connection established'))
         .catch(e => this.errorNotification(e.message))
-    },
-    successNotification (message) {
-      this.$buefy.toast.open({
-        duration: 5000,
-        message: message,
-        type: 'is-success'
-      })
-    },
-    errorNotification (message) {
-      this.$buefy.toast.open({
-        duration: 10000,
-        message: message,
-        type: 'is-danger'
-      })
     }
   },
   created () {

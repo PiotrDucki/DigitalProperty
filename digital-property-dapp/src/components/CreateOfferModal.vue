@@ -24,9 +24,11 @@
 
 <script>
 import { createOfferContracCall } from '@/util/contractAPI'
+import { notifications } from './elements/notifications.js'
 
 export default {
   name: 'CreateOfferModal',
+  mixins: [notifications],
   props: ['propertyId'],
   data: function () {
     return {
@@ -42,7 +44,7 @@ export default {
         buyerAddress: this.buyerAddres
       }
       createOfferContracCall(offer)
-      this.$buefy.toast.open('User confirmed')
+      this.confirmAcctionInMetaMaskNotification()
       this.price = null
       this.buyerAddres = null
     }

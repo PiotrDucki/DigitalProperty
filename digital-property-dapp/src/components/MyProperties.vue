@@ -56,11 +56,13 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
+import { notifications } from './elements/notifications.js'
 import CreateOfferModal from './CreateOfferModal.vue'
 import { removeOfferContracCall } from '@/util/contractAPI'
 
 export default {
   name: 'MyProperties',
+  mixins: [notifications],
   components: {
     CreateOfferModal
   },
@@ -80,22 +82,8 @@ export default {
         type: 'is-accent',
         onConfirm: () => {
           removeOfferContracCall(propertyId)
-            .then(this.warningNotification('Please confirm the acction in Metamask'))
+            .then(this.confirmAcctionInMetaMaskNotification())
         }
-      })
-    },
-    warningNotification (message) {
-      this.$buefy.toast.open({
-        duration: 5000,
-        message: message,
-        type: 'is-warning'
-      })
-    },
-    errorNotification (message) {
-      this.$buefy.toast.open({
-        duration: 10000,
-        message: message,
-        type: 'is-danger'
       })
     }
   },

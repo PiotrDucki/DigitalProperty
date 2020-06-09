@@ -36,10 +36,12 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
+import { notifications } from './elements/notifications.js'
 import { buyPropertyContracCall } from '@/util/contractAPI'
 
 export default {
   name: 'Property',
+  mixins: [notifications],
   data: function () {
     return {
       propertyId: null
@@ -52,7 +54,7 @@ export default {
         this.loadProperty(this.propertyId)
           .catch(e => this.errorNotification(e.message))
       } else {
-        this.inputIsNotIntegerAlert()
+        this.errorNotification(`Property ID must be an integer`)
       }
     },
     buyProperty () {
@@ -61,16 +63,7 @@ export default {
         price: this.property.offer.price
       }
       buyPropertyContracCall(offerDetails)
-    },
-    inputIsNotIntegerAlert () {
-      this.errorNotification(`Property ID must be an integer`)
-    },
-    errorNotification (message) {
-      this.$buefy.toast.open({
-        duration: 10000,
-        message: message,
-        type: 'is-danger'
-      })
+      this.confirmAcctionInMetaMaskNotification()
     }
   },
   computed: {
