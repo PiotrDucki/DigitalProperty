@@ -47,7 +47,7 @@ contract DigitalProperty {
 
     // user =>
     mapping(address => uint256[]) private userProperties;
-    mapping(address => bytes32) private userPeselHash;
+    mapping(address => string) private userPeselHash;
 
     // propertyId =>
     mapping(uint256 => uint256[]) private propertyTransactions;
@@ -69,8 +69,12 @@ contract DigitalProperty {
     // Public Admin
     
     function addUser (address _address, string memory _peselHash) public onlyAdmin {
-        require(userPeselHash[_address] == 0, 'Address is already registered');
-        userPeselHash[_address] = stringToBytes32(_peselHash);
+        require(stringToBytes32(userPeselHash[_address]) == 0, 'Address is already registered');
+        userPeselHash[_address] = _peselHash;
+    }
+
+     function getUser (address _address)  public view onlyAdmin returns (string memory) {
+        return userPeselHash[_address];
     }
     
     function addProperty (address payable _owner, string memory _data) public onlyAdmin {
@@ -270,7 +274,7 @@ contract DigitalProperty {
     function getAuth () public view returns (UserState) {
         if (msg.sender == admin) {
             return UserState.ADMIN;
-        } else if (userPeselHash[msg.sender] != 0) {
+        } else if (stringToBytes32(userPeselHash[msg.sender]) != 0) {
            return UserState.REGISTERED;
         } else {
             return UserState.UNREGISTERED;
@@ -282,7 +286,7 @@ contract DigitalProperty {
     //TODO refactor this so that it returns bool and then add requied funcion in place of use
     function validateIfUserIsRegistered(address _address) internal view {
         require(_address != address(0), 'Address is invalid');
-        require(userPeselHash[_address] != 0, 'Address is not registered');
+        require(stringToBytes32(userPeselHash[_address]) == 0, 'Address is already registered');
     }
     
     function stringToBytes32(string memory source) internal pure returns (bytes32 result) {
@@ -296,6 +300,18 @@ contract DigitalProperty {
         }
     }
 
+    function bytes32ToStr(bytes32 _bytes32) internal pure returns (string memory) {
+
+        // string memory str = string(_bytes32);
+        // TypeError: Explicit type conversion not allowed from "bytes32" to "string storage pointer"
+        // thus we should fist convert bytes32 to bytes (to dynamically-sized byte array)
+    
+        bytes memory bytesArray = new bytes(32);
+        for (uint256 i; i < 32; i++) {
+            bytesArray[i] = _bytes32[i];
+        }
+        return string (bytesArray);
+    }
 
     /** Removes the given value in an array. */
     function removeByValue(uint256[] storage values, uint256 value) internal {
@@ -337,7 +353,7 @@ contract DigitalProperty {
 
     modifier onlyRegisteredUsers() {
         require(msg.sender != address(0), 'Address is invalid');
-        require(userPeselHash[msg.sender] != 0, 'Address is not registered');
+        require(stringToBytes32(userPeselHash[msg.sender]) == 0, 'Address is already registered');
         _;
     }
 
@@ -361,18 +377,7 @@ contract DigitalProperty {
      event LogBytes32(string, string);
 
 
-     function bytes32ToStr(bytes32 _bytes32) internal pure returns (string memory) {
-
-        // string memory str = string(_bytes32);
-        // TypeError: Explicit type conversion not allowed from "bytes32" to "string storage pointer"
-        // thus we should fist convert bytes32 to bytes (to dynamically-sized byte array)
-    
-        bytes memory bytesArray = new bytes(32);
-        for (uint256 i; i < 32; i++) {
-            bytesArray[i] = _bytes32[i];
-        }
-        return string (bytesArray);
-    }
+     
         
     //================================================================================
     // Problems

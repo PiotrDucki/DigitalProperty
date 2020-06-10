@@ -24,6 +24,16 @@ export function loadMyPropertiesContracCall () {
   })
 }
 
+export function loadUserDataContracCall (address) {
+  var web3 = store.state.web3
+  return new Promise(function (resolve, reject) {
+    checkWeb3(web3, reject)
+    web3.contractInstance.methods.getUser(address).call()
+      .then((result) => resolve(result))
+      .catch((error) => reject(new Error(getErrorMessage(error))))
+  })
+}
+
 /// //////////////////////////
 //  Write acctions
 /// /////////////////////////
@@ -55,6 +65,17 @@ export function buyPropertyContracCall (offerDetails) {
     web3.contractInstance.methods.confirmOffer(offerDetails.propertyId).send({value: offerDetails.price})
       .then(resolve())
       .catch(reject(new Error('Error removeOfferContracCall')))
+  })
+}
+
+export function addUserContracCall (userData) {
+  var web3 = store.state.web3
+  return new Promise(function (resolve, reject) {
+    checkWeb3(web3, reject)
+    console.log(userData)
+    web3.contractInstance.methods.addUser(userData.address, userData.peselHash).send()
+      .then(resolve())
+      .catch(reject(new Error('Error addUserContracCall')))
   })
 }
 

@@ -21,6 +21,8 @@
           <b-button v-if="isUserUnregisterd" rounded class="is-accent">Register</b-button>
           <b-button v-if="isUserRegisterd" rounded class="is-accent"
           tag="router-link" :to="{ path: '/my-properties' }">My Properties</b-button>
+          <b-button v-if="isUserAdmin" rounded class="is-accent"
+          tag="router-link" :to="{ path: '/admin' }">Admin</b-button>
         </b-navbar-item>
       </template>
     </b-navbar>
@@ -41,7 +43,7 @@ export default {
     ...mapState({
       web3: state => state.web3
     }),
-    ...mapGetters(['isUserRegisterd', 'isUserUnregisterd'])
+    ...mapGetters(['isUserRegisterd', 'isUserUnregisterd', 'isUserAdmin'])
   },
   methods: {
     ...mapActions(['registerWeb3']),

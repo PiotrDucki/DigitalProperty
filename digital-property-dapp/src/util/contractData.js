@@ -1,6 +1,6 @@
 /* eslint-disable */ 
 
-const address = '0xB3cc98D41Dca2AB407a5a915DFDEa8D1164faCFb'
+const address = '0xA4E0d13558eE5984D12B97482325A258c58819b7'
 const ABI = [
 	{
 		"inputs": [
@@ -317,6 +317,25 @@ const ABI = [
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_address",
+				"type": "address"
+			}
+		],
+		"name": "getUser",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",

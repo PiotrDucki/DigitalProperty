@@ -1,6 +1,5 @@
 <template>
 <div>
-
   <div class="tile is-ancestor" v-for="property in myProperties" :key="property.id">
     <div class="tile is-parent has-margin-15">
       <div class="tile is-child box notification has-padding-40">
