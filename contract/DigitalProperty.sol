@@ -286,7 +286,7 @@ contract DigitalProperty {
     //TODO refactor this so that it returns bool and then add requied funcion in place of use
     function validateIfUserIsRegistered(address _address) internal view {
         require(_address != address(0), 'Address is invalid');
-        require(stringToBytes32(userPeselHash[_address]) == 0, 'Address is already registered');
+        require(stringToBytes32(userPeselHash[_address]) != 0, 'Address not registerd');
     }
     
     function stringToBytes32(string memory source) internal pure returns (bytes32 result) {

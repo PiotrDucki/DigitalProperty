@@ -2,9 +2,9 @@
 <section>
   <b-collapse class="card" animation="slide" aria-id="contentIdForA11y3">
     <div slot="trigger" class="panel-heading center" role="button" aria-controls="contentIdForA11y2">
-      <strong>User</strong>
+      <strong>Users</strong>
     </div>
-    <div class="tile is-ancestor has-padding-20">
+    <div class="tile is-ancestor has-padding-top-50 has-padding-bottom-50">
       <div class="tile is-parent has-margin-15">
         <div class="tile is-child box notification has-padding-40">
           <p class="title is-1">Search</p>
@@ -17,21 +17,21 @@
           <b-field label="User Pesel Hash" type="is-primary">
             <b-input v-model="peselHash" disabled></b-input>
           </b-field>
-          <b-button class="has-margin-top-30" type="is-accent" icon-right="handshake" expanded @click="promptVerifyPesel">
+          <b-button class="has-margin-top-30" type="is-accent" icon-right="check-square" expanded @click="promptVerifyPesel">
             Verify Pesel
           </b-button>
         </div>
       </div>
       <div class="tile is-parent has-margin-15">
         <div class='tile is-child box notification has-padding-40'>
-          <p class="title is-1">Add user</p>
+          <p class="title is-1">Add User</p>
           <b-field label="Address" type="is-primary">
             <b-input v-model="newUser.address"></b-input>
           </b-field>
           <b-field label="Pesel" type="is-primary">
             <b-input v-model="newUser.pesel"></b-input>
           </b-field>
-          <b-button class="has-margin-top-30" type="is-accent" icon-right="handshake" expanded @click="addUser">
+          <b-button class="has-margin-top-30" type="is-accent" icon-right="user-plus" expanded @click="addUser">
             Add User
           </b-button>
         </div>
@@ -42,9 +42,6 @@
 </template>
 
 <script>
-import {
-  mapActions
-} from 'vuex'
 import {
   notifications
 } from './elements/notifications.js'
@@ -69,12 +66,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['']),
     search () {
       loadUserDataContracCall(this.userAddress)
-        .then((result) => {
-          this.peselHash = result
-        })
+        .then((result) => { this.peselHash = result })
+        .catch(e => this.errorNotification(e.message))
     },
     addUser () {
       this.newUser.peselHash = this.calculateHash(this.newUser.pesel)

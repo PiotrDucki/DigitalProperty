@@ -1,6 +1,7 @@
 <template>
 <div>
   <admin-users/>
+  <admin-properties/>
   <section>
     <b-collapse class="card" animation="slide" aria-id="contentIdForA11y3">
       <div slot="trigger" class="panel-heading center" role="button" aria-controls="contentIdForA11y2">
@@ -42,32 +43,17 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex'
-import { notifications } from './elements/notifications.js'
 import AdminUsers from './AdminUsers.vue'
+import AdminProperties from './AdminProperties.vue'
+
 import {} from '@/util/contractAPI'
 
 export default {
   name: 'Admin',
-  mixins: [notifications],
   components: {
-    AdminUsers
-  },
-  data: function () {
-    return {
-    }
-  },
-  methods: {
-    ...mapActions([''])
-  },
-  computed: {
-    ...mapState({
-      myProperties: state => state.myProperties.propertyList
-    }),
-    ...mapGetters([''])
-  },
-  mounted () {},
-  watch: {}
+    AdminUsers,
+    AdminProperties
+  }
 }
 </script>
 
