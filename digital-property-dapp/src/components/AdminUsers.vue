@@ -17,7 +17,7 @@
           <b-field label="User Pesel Hash" type="is-primary">
             <b-input v-model="peselHash" disabled></b-input>
           </b-field>
-          <b-button class="has-margin-top-30" type="is-accent" icon-right="handshake" expanded @click="promptNumber">
+          <b-button class="has-margin-top-30" type="is-accent" icon-right="handshake" expanded @click="promptVerifyPesel">
             Verify Pesel
           </b-button>
         </div>
@@ -81,7 +81,7 @@ export default {
       addUserContracCall(this.newUser)
       this.confirmAcctionInMetaMaskNotification()
     },
-    promptNumber () {
+    promptVerifyPesel () {
       this.$buefy.dialog.prompt({
         message: `User Pesel`,
         type: 'is-accent',
@@ -92,14 +92,10 @@ export default {
         },
         trapFocus: true,
         onConfirm: (value) => {
-          console.log(typeof this.calculateHash(value))
-          console.log('calculated val' + this.calculateHash(value.toString()))
-          console.log(typeof this.peselHash)
-          console.log('value from web3 val' + this.peselHash)
-          if (this.peselHash.equals(this.calculateHash(value).equals())) {
-            this.successNotification('correct')
+          if (this.peselHash === this.calculateHash(value)) {
+            this.successNotification('Hash and pesel are matching')
           } else {
-            this.errorNotification('not correct')
+            this.errorNotification('Hash and pesel are not matching')
           }
         }
       })
@@ -107,10 +103,8 @@ export default {
     calculateHash (input) {
       var md = forge.md.sha256.create()
       md.update(input)
-      return this.md.digest().toHex()
+      return md.digest().toHex()
     }
-  },
-  created () {
   }
 }
 </script>
