@@ -10,7 +10,7 @@
         <b-navbar-item tag="router-link" :to="{ path: '/' }">
           Home
         </b-navbar-item>
-        <b-navbar-item tag="router-link" :to="{ path: '/property' }">
+        <b-navbar-item tag="router-link" :to="{ path: '/property/0' }">
           Property
         </b-navbar-item>
         <b-navbar-item href="#">

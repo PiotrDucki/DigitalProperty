@@ -44,13 +44,14 @@ export default {
   mixins: [notifications],
   data: function () {
     return {
-      propertyId: null
+      propertyId: Number(this.$route.params.id)
     }
   },
   methods: {
     ...mapActions(['loadProperty']),
     search () {
       if (this.propertyId === parseInt(this.propertyId, 10)) {
+        this.$root.$router.push({ name: 'property', params: { id: this.propertyId } })
         this.loadProperty(this.propertyId)
           .catch(e => this.errorNotification(e.message))
       } else {
@@ -79,6 +80,11 @@ export default {
     },
     userIsNotBuyer () {
       return this.property.offer.buyer !== this.userAddress
+    }
+  },
+  watch: {
+    $route (to, from) {
+      this.propertyId = Number(this.$route.params.id)
     }
   }
 }
