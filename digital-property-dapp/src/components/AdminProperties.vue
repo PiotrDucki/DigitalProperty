@@ -60,7 +60,7 @@ import {
 } from '@/util/contractAPI'
 
 export default {
-  name: 'AdminProperties',
+  name: 'AdminTransactions',
   mixins: [notifications],
   data: function () {
     return {

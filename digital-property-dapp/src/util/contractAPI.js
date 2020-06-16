@@ -44,6 +44,26 @@ export function loadUserPropertiesContracCall (address) {
   })
 }
 
+export function loadPropertytTransactionsContracCall (propertyId) {
+  var web3 = store.state.web3
+  return new Promise(function (resolve, reject) {
+    checkWeb3(web3, reject)
+    web3.contractInstance.methods.getPropertyHistory(propertyId).call()
+      .then((result) => resolve(result))
+      .catch((error) => reject(new Error(getErrorMessage(error))))
+  })
+}
+
+export function loadTransactionContracCall (transactionId) {
+  var web3 = store.state.web3
+  return new Promise(function (resolve, reject) {
+    checkWeb3(web3, reject)
+    web3.contractInstance.methods.getTransation(transactionId).call()
+      .then((result) => resolve(result))
+      .catch((error) => reject(new Error(getErrorMessage(error))))
+  })
+}
+
 /// //////////////////////////
 //  Write acctions
 /// /////////////////////////
