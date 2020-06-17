@@ -146,4 +146,5 @@ export default {
   // Import Bulma's core
   @import "~bulma";
   @import "~buefy/src/scss/buefy";
+  @import "styles/css/bulma-helpers-customization.css";
 </style>

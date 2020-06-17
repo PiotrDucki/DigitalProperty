@@ -6,7 +6,7 @@
     </div>
     <div class="tile is-ancestor has-padding-top-50 has-padding-bottom-50">
       <div class="tile is-parent is-vertical has-margin-15">
-        <div class="tile is-child box notification has-padding-40">
+        <div class="tile is-child box notification has-padding-40 has-height-200">
           <p class="title is-1">Search</p>
           <b-field grouped type="is-primary">
             <b-input v-model="searchedUser.address" placeholder="User Address" expanded></b-input>

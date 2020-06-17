@@ -4,7 +4,7 @@
     <div slot="trigger" class="panel-heading center" role="button" aria-controls="contentIdForA11y2">
       <strong>Transactions</strong>
     </div>
-    <div class="tile is-ancestor has-padding-top-50 has-padding-bottom-50">
+    <div class="tile is-ancestor has-padding-top-50 has-padding-bottom-50 has-min-height-650">
       <div class="tile is-parent is-vertical has-margin-15">
         <div class="tile is-child box notification has-padding-40">
           <p class="title is-1">Poperty Hisotry</p>
