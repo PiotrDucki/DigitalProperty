@@ -6,7 +6,7 @@
       </header>
       <section class="modal-card-body">
         <b-field label="Price">
-          <b-input v-model="price" placeholder="10000" required>
+          <b-input v-model.number="price" placeholder="10000" type='number' required>
           </b-input>
         </b-field>
         <b-field label="Address">

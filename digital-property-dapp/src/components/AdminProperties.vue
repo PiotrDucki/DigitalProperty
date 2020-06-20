@@ -35,10 +35,10 @@
         <div class='tile is-child box notification has-padding-40 has-height-350'>
           <p class="title is-1">Add Poperty</p>
           <b-field label="Owner Address" type="is-primary">
-            <b-input v-model="newPopperty.ownerAddress"></b-input>
+            <b-input v-model="newPopperty.ownerAddress" required></b-input>
           </b-field>
           <b-field label="Data" type="is-primary">
-            <b-input v-model="newPopperty.data"></b-input>
+            <b-input v-model="newPopperty.data" required></b-input>
           </b-field>
           <b-button class="has-margin-top-30" type="is-accent" icon-right="plus" expanded @click="addProperty">
             Add Poperty
@@ -58,6 +58,7 @@ import {
   loadUserPropertiesContracCall,
   addPropertyContracCall
 } from '@/util/contractAPI'
+import { isAddresValid } from '@/util/validation'
 
 export default {
   name: 'AdminTransactions',
@@ -76,15 +77,22 @@ export default {
   },
   methods: {
     search () {
-      console.log(this.searchedUser.address)
-      loadUserPropertiesContracCall(this.searchedUser.address)
-        .then(result => this.prcessContractData(result))
-        .catch(e => this.errorNotification(e.message))
+      if (isAddresValid(this.searchedUser.address)) {
+        loadUserPropertiesContracCall(this.searchedUser.address)
+          .then(result => this.prcessContractData(result))
+          .catch(e => this.errorNotification(e.message))
+      } else {
+        this.errorNotification(`Invalid Address`)
+      }
     },
     addProperty () {
-      addPropertyContracCall(this.newPopperty)
-        .catch(e => this.errorNotification(e.message))
-      this.confirmAcctionInMetaMaskNotification()
+      if (isAddresValid(this.newPopperty.ownerAddress)) {
+        addPropertyContracCall(this.newPopperty)
+          .catch(e => this.errorNotification(e.message))
+        this.confirmAcctionInMetaMaskNotification()
+      } else {
+        this.errorNotification(`Invalid Address`)
+      }
     },
     prcessContractData (result) {
       console.log(result)

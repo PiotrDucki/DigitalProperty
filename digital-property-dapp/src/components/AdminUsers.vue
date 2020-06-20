@@ -26,10 +26,10 @@
         <div class='tile is-child box notification has-padding-40'>
           <p class="title is-1">Add User</p>
           <b-field label="Address" type="is-primary">
-            <b-input v-model="newUser.address"></b-input>
+            <b-input v-model="newUser.address" required></b-input>
           </b-field>
           <b-field label="Pesel" type="is-primary">
-            <b-input v-model="newUser.pesel"></b-input>
+            <b-input v-model.number="newUser.pesel" required></b-input>
           </b-field>
           <b-button class="has-margin-top-30" type="is-accent" icon-right="user-plus" expanded @click="addUser">
             Add User
@@ -49,6 +49,7 @@ import {
   addUserContracCall,
   loadUserDataContracCall
 } from '@/util/contractAPI'
+import { isAddresValid, isPeselValid } from '@/util/validation'
 import forge from 'node-forge'
 
 export default {
@@ -67,14 +68,24 @@ export default {
   },
   methods: {
     search () {
-      loadUserDataContracCall(this.userAddress)
-        .then((result) => { this.peselHash = result })
-        .catch(e => this.errorNotification(e.message))
+      if (isAddresValid(this.userAddress)) {
+        loadUserDataContracCall(this.userAddress)
+          .then((result) => { this.peselHash = result })
+          .catch(e => this.errorNotification(e.message))
+      } else {
+        this.errorNotification(`Invalid Address`)
+      }
     },
     addUser () {
-      this.newUser.peselHash = this.calculateHash(this.newUser.pesel)
-      addUserContracCall(this.newUser)
-      this.confirmAcctionInMetaMaskNotification()
+      if (!isAddresValid(this.newUser.address)) {
+        this.errorNotification(`Invalid Address`)
+      } else if (!isPeselValid(this.newUser.pesel)) {
+        this.errorNotification(`Invalid Pesel`)
+      } else {
+        this.newUser.peselHash = this.calculateHash(this.newUser.pesel)
+        addUserContracCall(this.newUser)
+        this.confirmAcctionInMetaMaskNotification()
+      }
     },
     promptVerifyPesel () {
       this.$buefy.dialog.prompt({

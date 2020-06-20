@@ -9,7 +9,7 @@
         <div class="tile is-child box notification has-padding-40">
           <p class="title is-1">Poperty History</p>
           <b-field grouped type="is-primary">
-            <b-input v-model="searchedProperty.id" placeholder="Property Id" expanded></b-input>
+            <b-input v-model.number="searchedProperty.id" placeholder="Property Id" type='number' expanded></b-input>
             <p class="control">
               <button class="button is-accent" @click="getPropertyTransations">Search</button>
             </p>
@@ -41,7 +41,7 @@
         <div class="tile is-child box notification has-padding-40">
           <p class="title is-1">Search</p>
           <b-field grouped type="is-primary">
-            <b-input v-model="searchedTransaction.id" placeholder="Transaction Id" expanded></b-input>
+            <b-input v-model.number="searchedTransaction.id" placeholder="Transaction Id" type='number' expanded></b-input>
             <p class="control">
               <button class="button is-accent" @click="getTransation">Search</button>
             </p>
@@ -73,6 +73,7 @@ import {
   loadPropertytTransactionsContracCall,
   loadTransactionContracCall
 } from '@/util/contractAPI'
+import { isIdValid } from '@/util/validation'
 
 export default {
   name: 'AdminTransactions',
@@ -94,14 +95,22 @@ export default {
   },
   methods: {
     getPropertyTransations () {
-      loadPropertytTransactionsContracCall(this.searchedProperty.id)
-        .then(result => this.prcessPropertyTransationsData(result))
-        .catch(e => this.errorNotification(e.message))
+      if (isIdValid(this.searchedProperty.id)) {
+        loadPropertytTransactionsContracCall(this.searchedProperty.id)
+          .then(result => this.prcessPropertyTransationsData(result))
+          .catch(e => this.errorNotification(e.message))
+      } else {
+        this.errorNotification(`Invalid Id`)
+      }
     },
     getTransation () {
-      loadTransactionContracCall(this.searchedTransaction.id)
-        .then(result => this.prcessPropertyTransationData(result))
-        .catch(e => this.errorNotification(e.message))
+      if (isIdValid(this.searchedTransaction.id)) {
+        loadTransactionContracCall(this.searchedTransaction.id)
+          .then(result => this.prcessPropertyTransationData(result))
+          .catch(e => this.errorNotification(e.message))
+      } else {
+        this.errorNotification(`Invalid Id`)
+      }
     },
     prcessPropertyTransationsData (result) {
       console.log(result)

@@ -4,7 +4,7 @@
     <div class="tile is-child box notification has-padding-40">
       <p class="title is-1">Property</p>
       <b-field grouped type="is-primary">
-        <b-input v-model.number="propertyId" placeholder="Property ID" expanded></b-input>
+        <b-input v-model.number="propertyId" placeholder="Property ID" expanded type='number'></b-input>
         <p class="control">
           <button class="button is-accent" v-on:click="search()">Search</button>
         </p>
@@ -38,6 +38,7 @@
 import { mapState, mapGetters, mapActions } from 'vuex'
 import { notifications } from './elements/notifications.js'
 import { buyPropertyContracCall } from '@/util/contractAPI'
+import { isIdValid } from '@/util/validation'
 
 export default {
   name: 'Property',
@@ -50,7 +51,7 @@ export default {
   methods: {
     ...mapActions(['loadProperty']),
     search () {
-      if (this.propertyId === parseInt(this.propertyId, 10)) {
+      if (isIdValid(this.propertyId)) {
         this.$root.$router.push({ name: 'property', params: { id: this.propertyId } })
         this.loadProperty(this.propertyId)
           .catch(e => this.errorNotification(e.message))
