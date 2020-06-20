@@ -3,6 +3,7 @@
   <admin-users/>
   <admin-properties/>
   <admin-transactions/>
+  <admin-recent-activities/>
 </div>
 </template>
 
@@ -10,6 +11,7 @@
 import AdminUsers from './AdminUsers.vue'
 import AdminProperties from './AdminProperties.vue'
 import AdminTransactions from './AdminTransactions.vue'
+import AdminRecentActivities from './AdminRecentActivities.vue'
 
 import {} from '@/util/contractAPI'
 
@@ -18,7 +20,8 @@ export default {
   components: {
     AdminUsers,
     AdminProperties,
-    AdminTransactions
+    AdminTransactions,
+    AdminRecentActivities
   }
 }
 </script>

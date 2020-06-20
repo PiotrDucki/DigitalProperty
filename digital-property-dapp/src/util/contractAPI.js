@@ -64,6 +64,16 @@ export function loadTransactionContracCall (transactionId) {
   })
 }
 
+export function loadRecentTransactionsContracCall () {
+  var web3 = store.state.web3
+  return new Promise(function (resolve, reject) {
+    checkWeb3(web3, reject)
+    web3.contractInstance.methods.getRecentTransations().call()
+      .then((result) => resolve(result))
+      .catch((error) => reject(new Error(getErrorMessage(error))))
+  })
+}
+
 /// //////////////////////////
 //  Write acctions
 /// /////////////////////////

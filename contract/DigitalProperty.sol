@@ -145,8 +145,36 @@ contract DigitalProperty {
         return (transaction.id, transaction.price, transaction.seller, transaction.buyer, transaction.date);
     }
 
-    //TODO
-    function getLatestTransations () public view onlyAdmin returns (uint256, uint256, address, address, uint) {
+    function getRecentTransations () public view onlyAdmin
+    returns (uint256[] memory, uint256[] memory, address[] memory, address[] memory, uint[] memory) {
+
+        uint256 oneDay = 86400;
+        uint256 firstPossibleDate = now - oneDay;
+        Transaction memory firstTransaction = transationById[transactionCounter - 1];
+
+        //get first transaction from last 24h
+        while (firstTransaction.date > firstPossibleDate){
+            firstTransaction = transationById[firstTransaction.id - 1];
+        }
+        firstTransaction = transationById[firstTransaction.id + 1];
+
+        uint256 total = transactionCounter - firstTransaction.id + 1;
+        uint256[] memory ids = new uint256[](total);
+        uint256[] memory prices = new uint256[](total);
+        address[] memory selers = new address[](total);
+        address[] memory buyers = new address[](total);
+        uint[] memory dates = new uint[](total);
+
+        for (uint256 i = 0; i < total; i++){
+            Transaction memory transaction = transationById[transactionCounter - i];
+            ids[i] = transaction.id;
+            prices[i] = transaction.price;
+            selers[i] = transaction.seller;
+            buyers[i] = transaction.buyer;
+            dates[i] = transaction.date;
+        }
+
+        return (ids, prices, selers, buyers, dates);
     }
 
     // Public Users
@@ -353,7 +381,7 @@ contract DigitalProperty {
 
     modifier onlyRegisteredUsers() {
         require(msg.sender != address(0), 'Address is invalid');
-        require(stringToBytes32(userPeselHash[msg.sender]) == 0, 'Address is already registered');
+        require(stringToBytes32(userPeselHash[msg.sender]) != 0, 'User is not registered');
         _;
     }
 

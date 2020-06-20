@@ -1,6 +1,6 @@
 /* eslint-disable */ 
 
-const address = '0x473133D44e746EdEdA127e373Ea5aE8BEbb4D133'
+const address = '0x736840558860265106bB097566C2a9049291262B'
 const ABI = [
 	{
 		"inputs": [
@@ -126,39 +126,6 @@ const ABI = [
 	},
 	{
 		"inputs": [],
-		"name": "getLatestTransations",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
 		"name": "getMyProperties",
 		"outputs": [
 			{
@@ -253,6 +220,39 @@ const ABI = [
 			}
 		],
 		"name": "getPropertyHistory",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			},
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getRecentTransations",
 		"outputs": [
 			{
 				"internalType": "uint256[]",
