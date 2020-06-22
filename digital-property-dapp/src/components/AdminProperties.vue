@@ -32,13 +32,37 @@
         </div>
       </div>
       <div class="tile is-parent has-margin-15">
-        <div class='tile is-child box notification has-padding-40 has-height-350'>
+        <div class='tile is-child box notification has-padding-40 has-height-1000'>
           <p class="title is-1">Add Poperty</p>
           <b-field label="Owner Address" type="is-primary">
             <b-input v-model="newPopperty.ownerAddress" required></b-input>
           </b-field>
-          <b-field label="Data" type="is-primary">
-            <b-input v-model="newPopperty.data" required></b-input>
+          <hr style="border: 1px solid #ddd">
+          <p class="subtitle is-1">Location</p>
+          <b-field label="City" type="is-primary">
+            <b-input v-model="newPopperty.data.city" required></b-input>
+          </b-field>
+          <b-field label="Postal Code" type="is-primary">
+            <b-input v-model="newPopperty.data.postalCode" required></b-input>
+          </b-field>
+          <b-field label="Address" type="is-primary">
+            <b-input v-model="newPopperty.data.address" required></b-input>
+          </b-field>
+          <hr style="border: 1px solid #ddd">
+          <p class="subtitle is-1">Plot</p>
+          <b-field label="Type" type="is-primary">
+            <b-input v-model="newPopperty.data.plotType"></b-input>
+          </b-field>
+          <b-field label="Surface" type="is-primary">
+            <b-input v-model="newPopperty.data.plotSurface"></b-input>
+          </b-field>
+          <hr style="border: 1px solid #ddd">
+          <p class="subtitle is-1">Building</p>
+          <b-field label="Type" type="is-primary">
+            <b-input v-model="newPopperty.data.buildingType"></b-input>
+          </b-field>
+          <b-field label="Surface" type="is-primary">
+            <b-input v-model="newPopperty.data.buildingSurface"></b-input>
           </b-field>
           <b-button class="has-margin-top-30" type="is-accent" icon-right="plus" expanded @click="addProperty">
             Add Poperty
@@ -58,7 +82,9 @@ import {
   loadUserPropertiesContracCall,
   addPropertyContracCall
 } from '@/util/contractAPI'
-import { isAddresValid } from '@/util/validation'
+import {
+  isAddresValid
+} from '@/util/validation'
 
 export default {
   name: 'AdminTransactions',
@@ -71,7 +97,15 @@ export default {
       },
       newPopperty: {
         ownerAddress: '',
-        data: ''
+        data: {
+          city: '',
+          postalCode: '',
+          address: '',
+          plotType: null,
+          plotSurface: null,
+          buildingType: null,
+          buildingSurface: null
+        }
       }
     }
   },

@@ -124,7 +124,7 @@ export function addPropertyContracCall (property) {
   return new Promise(function (resolve, reject) {
     checkWeb3(web3, reject)
     console.log(property)
-    web3.contractInstance.methods.addProperty(property.ownerAddress, property.data).send()
+    web3.contractInstance.methods.addProperty(property.ownerAddress, JSON.stringify(removeEmpty(property.data))).send()
       .then(resolve())
       .catch(reject(new Error('Error addPropertyContracCall')))
   })
@@ -143,4 +143,9 @@ function getErrorMessage (error) {
   var message = errorString.match(/("reason"*:["a-zA-Z0-9\- :]*)/g)[0]
   message = message.substring(11, (message.length - 1))
   return message
+}
+
+const removeEmpty = (obj) => {
+  Object.keys(obj).forEach((k) => (!obj[k] && obj[k] !== undefined && obj[k] !== undefined) && delete obj[k])
+  return obj
 }
