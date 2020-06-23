@@ -22,7 +22,7 @@ const actions = {
       // Process results
       var property = {
         id: result[0],
-        data: result[1],
+        data: JSON.parse(result[1]),
         owner: result[2].toLowerCase(),
         ifForSale: result[3],
         offer: {

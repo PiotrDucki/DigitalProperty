@@ -19,7 +19,7 @@ const actions = {
         const formatedDate = `${date} ${time}`
         var property = {
           id: result[0][i],
-          data: result[1][i],
+          data: JSON.parse(result[1][i]),
           ifForSale: result[2][i],
           offer: {
             price: result[3][i],

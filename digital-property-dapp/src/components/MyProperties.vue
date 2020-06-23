@@ -7,9 +7,11 @@
         <b-field label="Property Id" type="is-primary">
           <b-input disabled v-model="property.id"></b-input>
         </b-field>
-        <b-field label="Property Data" type="is-primary">
-          <b-input disabled v-model="property.data"></b-input>
-        </b-field>
+        <div v-for="(dataValue, dataLable)  in property.data" :key="dataLable">
+              <b-field :label="convertCamelCaseToSentenceCase(dataLable)" type="is-primary" class="has-margin-top-10">
+                <b-input :value="dataValue" disabled></b-input>
+              </b-field>
+            </div>
         <hr>
         <b-field label="Previous Owner" type="is-primary">
           <b-input disabled v-model="property.previousOvner"></b-input>
@@ -84,6 +86,10 @@ export default {
             .then(this.confirmAcctionInMetaMaskNotification())
         }
       })
+    },
+    convertCamelCaseToSentenceCase (text) {
+      var result = text.replace(/([A-Z])/g, ' $1')
+      return result.charAt(0).toUpperCase() + result.slice(1)
     }
   },
   computed: {

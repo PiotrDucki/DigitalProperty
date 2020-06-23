@@ -9,12 +9,14 @@
           <button class="button is-accent" v-on:click="search()">Search</button>
         </p>
       </b-field>
-      <b-field label="Property Data" type="is-primary">
-        <b-input disabled v-model="property.data"></b-input>
-      </b-field>
       <b-field label="Property Owner" type="is-primary" class="has-padding-bottom-30">
         <b-input disabled v-model="property.owner"></b-input>
       </b-field>
+      <div v-for="(dataValue, dataLable)  in property.data" :key="dataLable">
+        <b-field :label="convertCamelCaseToSentenceCase(dataLable)" type="is-primary" class="has-margin-top-10">
+          <b-input :value="dataValue" disabled></b-input>
+        </b-field>
+      </div>
     </div>
   </div>
   <div v-bind:class="[(showOffer) ? 'has-height-400' : 'has-height-150','tile is-parent has-margin-15']">
@@ -35,10 +37,20 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex'
-import { notifications } from './elements/notifications.js'
-import { buyPropertyContracCall } from '@/util/contractAPI'
-import { isIdValid } from '@/util/validation'
+import {
+  mapState,
+  mapGetters,
+  mapActions
+} from 'vuex'
+import {
+  notifications
+} from './elements/notifications.js'
+import {
+  buyPropertyContracCall
+} from '@/util/contractAPI'
+import {
+  isIdValid
+} from '@/util/validation'
 
 export default {
   name: 'Property',
@@ -52,7 +64,12 @@ export default {
     ...mapActions(['loadProperty']),
     search () {
       if (isIdValid(this.propertyId)) {
-        this.$root.$router.push({ name: 'property', params: { id: this.propertyId } })
+        this.$root.$router.push({
+          name: 'property',
+          params: {
+            id: this.propertyId
+          }
+        })
         this.loadProperty(this.propertyId)
           .catch(e => this.errorNotification(e.message))
       } else {
@@ -66,6 +83,10 @@ export default {
       }
       buyPropertyContracCall(offerDetails)
       this.confirmAcctionInMetaMaskNotification()
+    },
+    convertCamelCaseToSentenceCase (text) {
+      var result = text.replace(/([A-Z])/g, ' $1')
+      return result.charAt(0).toUpperCase() + result.slice(1)
     }
   },
   computed: {
