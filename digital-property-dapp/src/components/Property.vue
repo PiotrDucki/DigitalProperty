@@ -23,7 +23,7 @@
     <div class='tile is-child box notification has-padding-40'>
       <p class="title is-1">Offer</p>
       <div v-if="showOffer">
-        <b-field label="Price" type="is-primary">
+        <b-field label="Price [ETH]" type="is-primary">
           <b-input disabled v-model="property.offer.price"></b-input>
         </b-field>
         <b-field label="Buyer" type="is-primary">

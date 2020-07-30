@@ -26,7 +26,7 @@ const actions = {
         owner: result[2].toLowerCase(),
         ifForSale: result[3],
         offer: {
-          price: result[4],
+          price: result[4] / 1000000000000000000,
           buyer: result[5].toLowerCase()
         }
       }

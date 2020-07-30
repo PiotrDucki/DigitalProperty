@@ -24,7 +24,7 @@
     <div v-if="property.ifForSale" class="tile is-parent has-margin-15">
       <div class="tile is-child box notification has-padding-40 has-height-350">
         <p class="title is-1">Offer</p>
-        <b-field label="Price" type="is-primary">
+        <b-field label="Price [ETH]" type="is-primary">
           <b-input disabled v-model="property.offer.price"></b-input>
         </b-field>
         <b-field label="Buyer" type="is-primary">

@@ -5,7 +5,7 @@
         <p class="modal-card-title">Create Offer</p>
       </header>
       <section class="modal-card-body">
-        <b-field label="Price">
+        <b-field label="Price [ETH]">
           <b-input v-model.number="price" placeholder="10000" type='number' required>
           </b-input>
         </b-field>

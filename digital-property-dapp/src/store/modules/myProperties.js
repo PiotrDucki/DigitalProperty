@@ -22,7 +22,7 @@ const actions = {
           data: JSON.parse(result[1][i]),
           ifForSale: result[2][i],
           offer: {
-            price: result[3][i],
+            price: result[3][i] / 1000000000000000000,
             buyer: result[4][i]
           },
           previousOvner: result[5][i],

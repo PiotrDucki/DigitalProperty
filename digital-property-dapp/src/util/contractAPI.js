@@ -1,4 +1,5 @@
 import store from '../store'
+var Web3 = require('web3')
 
 /// //////////////////////////
 //  Read acctions
@@ -92,7 +93,7 @@ export function createOfferContracCall (offer) {
   var web3 = store.state.web3
   return new Promise(function (resolve, reject) {
     checkWeb3(web3, reject)
-    web3.contractInstance.methods.createOffer(offer.propertyId, offer.price, offer.buyerAddress).send()
+    web3.contractInstance.methods.createOffer(offer.propertyId, Web3.utils.toWei(offer.price.toString(), 'ether'), offer.buyerAddress).send()
       .then(resolve())
       .catch(reject(new Error('Error removeOfferContracCall')))
   })
@@ -102,7 +103,7 @@ export function buyPropertyContracCall (offerDetails) {
   var web3 = store.state.web3
   return new Promise(function (resolve, reject) {
     checkWeb3(web3, reject)
-    web3.contractInstance.methods.confirmOffer(offerDetails.propertyId).send({value: offerDetails.price})
+    web3.contractInstance.methods.confirmOffer(offerDetails.propertyId).send({value: Web3.utils.toWei(offerDetails.price.toString(), 'ether')})
       .then(resolve())
       .catch(reject(new Error('Error removeOfferContracCall')))
   })

@@ -82,7 +82,7 @@ export default {
       } else if (!isPeselValid(this.newUser.pesel)) {
         this.errorNotification(`Invalid Pesel`)
       } else {
-        this.newUser.peselHash = this.calculateHash(this.newUser.pesel)
+        this.newUser.peselHash = this.calculateHash(this.newUser.pesel.toString())
         addUserContracCall(this.newUser)
         this.confirmAcctionInMetaMaskNotification()
       }
@@ -93,7 +93,7 @@ export default {
         type: 'is-accent',
         inputAttrs: {
           type: 'text',
-          placeholder: '90260807894',
+          placeholder: '97102701234',
           length: 11
         },
         trapFocus: true,

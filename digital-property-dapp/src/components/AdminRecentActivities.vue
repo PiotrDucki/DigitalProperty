@@ -19,7 +19,7 @@
             <b-field label="Id" type="is-primary">
               <b-input v-model="transaction.id" disabled></b-input>
             </b-field>
-            <b-field label="Price" type="is-primary">
+            <b-field label="Price [ETH]" type="is-primary">
               <b-input v-model="transaction.price" disabled></b-input>
             </b-field>
             <b-field label="Seller" type="is-primary">
@@ -74,7 +74,7 @@ export default {
         const formatedDate = `${date} ${time}`
         var transaction = {
           id: result[0][i],
-          price: result[1][i],
+          price: result[1][i] / 1000000000000000000,
           sellerAddres: result[2][i],
           buyerAddres: result[3][i],
           date: formatedDate
