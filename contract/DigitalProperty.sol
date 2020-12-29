@@ -379,42 +379,6 @@ contract DigitalProperty {
         _;
     }
 
-
-    
-    //modifier registred user has addres with persl 
-    
-    
-    
-    //================================================================================
-    // Meta Mask
-    // Admin 0x95cEC548ddA3d2382e97e2061B8402AC04f9db05
-    // Second account 0x236b52e93493Cc873aA33eae10d08eE4805266D3
-    // Imported account 0x5F41aB77681db06162de16b36dcfbFDA11097eE2
-    // Current JS VM
-    // Admin 0x51E1730Ff32fac2Fa838671B50789475cC2C05A1
-    // Second account 0x514154790dDF4622348Da8e45b00CcbcCB96f7DE
-    //================================================================================
-
-
      event LogBytes32(string, string);
-
-
-     
-        
-    //================================================================================
-    // Problems
-    //================================================================================
-    
-    //the pesel hash Im getting back is just half of the size of real one
-
-    //decide how to store owner of propertie
-
-    //================================================================================
-    // Aditional stuff
-    //================================================================================
-    
-    //should I provide the possiblity to deactivate account?
-
-    //should the admin be allowed to see all transactions chronoglicly
 
 }
